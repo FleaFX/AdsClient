@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AmsAddressTests.cs" />
+    <Compile Include="AmsHeaderTests.cs" />
     <Compile Include="AmsNetIdTests.cs" />
     <Compile Include="AmsPortTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -70,6 +70,24 @@ namespace AdsClient.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given command ID is invalid. Check http://infosys.beckhoff.com/content/1033/tcadsamsspec/html/tcadsamsspec_amsheader.htm?id=18623#Command%20Id for allowed values..
+        /// </summary>
+        internal static string AmsHeaderInvalidCommandId {
+            get {
+                return ResourceManager.GetString("AmsHeaderInvalidCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given state flags are invalid. Check http://infosys.beckhoff.com/content/1033/tcadsamsspec/html/tcadsamsspec_amsheader.htm?id=18623#State%20Flags for allowed values..
+        /// </summary>
+        internal static string AmsHeaderInvalidStateFlags {
+            get {
+                return ResourceManager.GetString("AmsHeaderInvalidStateFlags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The given string is incorrectly formatted to be a valid AMSNetId..
         /// </summary>
         internal static string AmsNetIdParseInvalidFormat {
