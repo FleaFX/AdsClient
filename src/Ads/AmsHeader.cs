@@ -1,7 +1,7 @@
 ﻿using System;
-using AdsClient.Properties;
+using Ads.Properties;
 
-namespace AdsClient {
+namespace Ads {
   public class AmsHeader {
     readonly AmsAddress _target;
     readonly AmsAddress _source;

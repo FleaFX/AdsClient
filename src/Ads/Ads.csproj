@@ -7,8 +7,8 @@
     <ProjectGuid>{627D4C19-EF1A-4CCC-B495-87EFAC6699E8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdsClient</RootNamespace>
-    <AssemblyName>AdsClient</AssemblyName>
+    <RootNamespace>Ads</RootNamespace>
+    <AssemblyName>Ads</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

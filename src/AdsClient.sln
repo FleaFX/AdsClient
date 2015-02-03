@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsClient", "AdsClient\AdsClient.csproj", "{627D4C19-EF1A-4CCC-B495-87EFAC6699E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ads", "Ads\Ads.csproj", "{627D4C19-EF1A-4CCC-B495-87EFAC6699E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsClient.Tests", "AdsClient.Tests\AdsClient.Tests.csproj", "{C26539EB-2EDB-443E-9966-3F8D7422EF80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ads.Tests", "Ads.Tests\Ads.Tests.csproj", "{C26539EB-2EDB-443E-9966-3F8D7422EF80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

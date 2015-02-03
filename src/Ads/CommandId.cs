@@ -1,4 +1,4 @@
-﻿namespace AdsClient {
+﻿namespace Ads {
   public enum CommandId : uint {
     Invalid = 0u,
     AdsReadDeviceInfo = 1u,

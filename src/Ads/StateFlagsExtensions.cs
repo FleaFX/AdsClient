@@ -1,4 +1,4 @@
-﻿namespace AdsClient {
+﻿namespace Ads {
   public static class StateFlagsExtensions {
     /// <summary>
     /// Indicates whether a reserved bit is used. See http://infosys.beckhoff.com/content/1033/tcadsamsspec/html/tcadsamsspec_amsheader.htm?id=18623#State%20Flags for more information.

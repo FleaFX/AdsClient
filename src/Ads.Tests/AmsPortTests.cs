@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AdsClient.Tests {
+namespace Ads {
   [TestFixture]
   public class AmsPortTests {
     [Test]

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AdsClient.Properties;
+using Ads.Properties;
 
-namespace AdsClient {
+namespace Ads {
   /// <summary>
   /// Extension to the TCP/IP address that identifies a TwinCAT message router.
   /// </summary>

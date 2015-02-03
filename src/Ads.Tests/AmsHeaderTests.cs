@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace AdsClient.Tests {
+namespace Ads {
   [TestFixture]
   public class AmsHeaderTests {
     [Test]

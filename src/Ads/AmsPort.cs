@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdsClient {
+namespace Ads {
   public struct AmsPort {
     readonly uint _value;
 

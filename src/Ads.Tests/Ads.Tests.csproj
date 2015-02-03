@@ -7,8 +7,8 @@
     <ProjectGuid>{C26539EB-2EDB-443E-9966-3F8D7422EF80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdsClient.Tests</RootNamespace>
-    <AssemblyName>AdsClient.Tests</AssemblyName>
+    <RootNamespace>Ads</RootNamespace>
+    <AssemblyName>Ads.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,9 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdsClient\AdsClient.csproj">
+    <ProjectReference Include="..\AdsClient\Ads.csproj">
       <Project>{627d4c19-ef1a-4ccc-b495-87efac6699e8}</Project>
-      <Name>AdsClient</Name>
+      <Name>Ads</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

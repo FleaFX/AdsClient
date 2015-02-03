@@ -1,7 +1,7 @@
 ﻿using System;
-using AdsClient.Properties;
+using Ads.Properties;
 
-namespace AdsClient {
+namespace Ads {
   public class AmsAddress {
     readonly AmsNetId _amsNetId;
     readonly AmsPort _amsPort;

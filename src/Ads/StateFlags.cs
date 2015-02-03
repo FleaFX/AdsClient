@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdsClient {
+namespace Ads {
   [Flags]
   public enum StateFlags {
     Request = 0,
