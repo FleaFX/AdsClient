@@ -45,14 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdsDeviceInfoTests.cs" />
+    <Compile Include="AdsDeviceVersionTests.cs" />
     <Compile Include="AmsAddressTests.cs" />
     <Compile Include="AmsHeaderTests.cs" />
     <Compile Include="AmsNetIdTests.cs" />
     <Compile Include="AmsPortTests.cs" />
+    <Compile Include="AdsDeviceNameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdsClient\Ads.csproj">
+    <ProjectReference Include="..\Ads\Ads.csproj">
       <Project>{627d4c19-ef1a-4ccc-b495-87efac6699e8}</Project>
       <Name>Ads</Name>
     </ProjectReference>

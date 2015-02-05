@@ -113,5 +113,14 @@ namespace Ads.Properties {
                 return ResourceManager.GetString("AmsNetIdValueOutOfRange", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given name is too long to be a valid ADS device name..
+        /// </summary>
+        internal static string DeviceNameOverflow {
+            get {
+                return ResourceManager.GetString("DeviceNameOverflow", resourceCulture);
+            }
+        }
     }
 }

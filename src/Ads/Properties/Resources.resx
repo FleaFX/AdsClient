@@ -135,4 +135,7 @@
   <data name="AmsNetIdValueOutOfRange" xml:space="preserve">
     <value>Exactly 6 bytes are required to form a valid AMSNetId.</value>
   </data>
+  <data name="DeviceNameOverflow" xml:space="preserve">
+    <value>The given name is too long to be a valid ADS device name.</value>
+  </data>
 </root>
