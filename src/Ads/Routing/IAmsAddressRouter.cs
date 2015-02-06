@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 
 namespace Ads.Routing {
   /// <summary>
@@ -6,25 +7,17 @@ namespace Ads.Routing {
   /// </summary>
   public interface IAmsAddressRouter {
     /// <summary>
-    /// Returns the <see cref="IPAddress"/> that is associated with the given <see cref="AmsAddress"/>.
+    /// Returns the <see cref="IPAddress"/> that is associated with the given <see cref="AmsNetId"/>.
     /// </summary>
-    /// <param name="amsAddress">The <see cref="AmsAddress"/>.</param>
+    /// <param name="amsNetId">The <see cref="AmsNetId"/>.</param>
     /// <returns>An <see cref="IPAddress"/>.</returns>
-    IPAddress Resolve(AmsAddress amsAddress);
+    Task<IPAddress> ResolveAsync(AmsNetId amsNetId);
 
     /// <summary>
-    /// Tries to resolve the <see cref="IPAddress"/> that is associated with the given <see cref="AmsAddress"/>.
+    /// Adds an association between an <see cref="AmsNetId"/> and an <see cref="IPAddress"/>.
     /// </summary>
-    /// <param name="amsAddress">The <see cref="AmsAddress"/>.</param>
-    /// <param name="ipAddress">If found, contains the <see cref="IPAddress"/> that is associated with the <see cref="AmsAddress"/>.</param>
-    /// <returns><c>true</c> if an association was found, otherwise <c>false</c>.</returns>
-    bool TryResolve(AmsAddress amsAddress, out IPAddress ipAddress);
-
-    /// <summary>
-    /// Adds an association between an <see cref="AmsAddress"/> and an <see cref="IPAddress"/>.
-    /// </summary>
-    /// <param name="amsAddress">The <see cref="AmsAddress"/>.</param>
+    /// <param name="amsNetId">The <see cref="AmsNetId"/>.</param>
     /// <param name="ipAddress">The <see cref="IPAddress"/>.</param>
-    void Add(AmsAddress amsAddress, IPAddress ipAddress);
+    void Add(AmsNetId amsNetId, IPAddress ipAddress);
   }
 }

@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="Routing\InMemoryAmsAddressRouter.cs" />
     <Compile Include="Routing\IAmsAddressRouter.cs" />
+    <Compile Include="Routing\UnknownAmsAddressException.cs" />
     <Compile Include="StateFlags.cs" />
     <Compile Include="StateFlagsExtensions.cs" />
   </ItemGroup>
