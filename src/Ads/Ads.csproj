@@ -54,6 +54,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Routing\InMemoryAmsAddressRouter.cs" />
+    <Compile Include="Routing\IAmsAddressRouter.cs" />
     <Compile Include="StateFlags.cs" />
     <Compile Include="StateFlagsExtensions.cs" />
   </ItemGroup>
