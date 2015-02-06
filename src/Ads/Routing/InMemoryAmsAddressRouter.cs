@@ -36,6 +36,8 @@ namespace Ads.Routing {
     public void Add(AmsNetId amsNetId, IPAddress ipAddress) {
       if (AmsNetId.Empty.Equals(amsNetId)) throw new ArgumentNullException("amsNetId");
       if (IPAddress.Any.Equals(ipAddress)) throw new ArgumentOutOfRangeException("ipAddress");
+      if (IPAddress.None.Equals(ipAddress)) throw new ArgumentOutOfRangeException("ipAddress");
+      if (IPAddress.Broadcast.Equals(ipAddress)) throw new ArgumentOutOfRangeException("ipAddress");
       _routes[amsNetId] = ipAddress;
     }
   }

@@ -12,9 +12,11 @@ namespace Ads.Routing {
     }
 
     [Test]
-    public void AddAnyIpAddressThrows() {
+    public void AddInvalidIpAddressThrows() {
       var router = new InMemoryAmsAddressRouter();
       Assert.Throws<ArgumentOutOfRangeException>(() => router.Add(AmsNetId.Parse("192.168.10.14.1.1"), IPAddress.Any));
+      Assert.Throws<ArgumentOutOfRangeException>(() => router.Add(AmsNetId.Parse("192.168.10.14.1.1"), IPAddress.None));
+      Assert.Throws<ArgumentOutOfRangeException>(() => router.Add(AmsNetId.Parse("192.168.10.14.1.1"), IPAddress.Broadcast));
     }
 
     [Test]
