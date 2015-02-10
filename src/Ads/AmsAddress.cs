@@ -31,6 +31,15 @@ namespace Ads {
       return new AmsAddress(amsNetId, amsPort);
     }
 
+    /// <summary>
+    /// Accepts a <see cref="IAmsAddressVisitor"/> to inspect the <see cref="AmsNetId"/> and <see cref="AmsPort"/> of the address.
+    /// </summary>
+    /// <param name="visitor">The <see cref="IAmsAddressVisitor"/>.</param>
+    public void Accept(IAmsAddressVisitor visitor) {
+      visitor.Visit(_amsNetId);
+      visitor.Visit(_amsPort);
+    }
+
     public override string ToString() {
       return string.Format("{0}:{1}", _amsNetId, _amsPort);
     }

@@ -2,7 +2,7 @@
 
 namespace Ads {
   [Flags]
-  public enum StateFlags {
+  public enum StateFlags : ushort {
     Request = 0,
     Response = 1,
     AdsCommand = 4,

@@ -33,7 +33,7 @@ namespace Ads.Routing {
     /// </summary>
     /// <param name="amsNetId">The <see cref="AmsNetId"/>.</param>
     /// <param name="ipAddress">The <see cref="IPAddress"/>.</param>
-    public void Add(AmsNetId amsNetId, IPAddress ipAddress) {
+    public void AddRoute(AmsNetId amsNetId, IPAddress ipAddress) {
       if (AmsNetId.Empty.Equals(amsNetId)) throw new ArgumentNullException("amsNetId");
       if (IPAddress.Any.Equals(ipAddress)) throw new ArgumentOutOfRangeException("ipAddress");
       if (IPAddress.None.Equals(ipAddress)) throw new ArgumentOutOfRangeException("ipAddress");

@@ -1,14 +1,14 @@
 ﻿namespace Ads {
-  public enum CommandId : uint {
-    Invalid = 0u,
-    AdsReadDeviceInfo = 1u,
-    AdsRead = 2u,
-    AdsWrite = 3u,
-    AdsReadState = 4u,
-    AdsWriteControl = 5u,
-    AdsAddDeviceNotification = 6u,
-    AdsDeleteDeviceNotification = 7u,
-    AdsDeviceNotification = 8u,
-    AdsReadWrite = 9u
+  public enum CommandId : ushort {
+    Invalid = 0,
+    AdsReadDeviceInfo = 1,
+    AdsRead = 2,
+    AdsWrite = 3,
+    AdsReadState = 4,
+    AdsWriteControl = 5,
+    AdsAddDeviceNotification = 6,
+    AdsDeleteDeviceNotification = 7,
+    AdsDeviceNotification = 8,
+    AdsReadWrite = 9
   }
 }

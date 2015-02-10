@@ -18,6 +18,6 @@ namespace Ads.Routing {
     /// </summary>
     /// <param name="amsNetId">The <see cref="AmsNetId"/>.</param>
     /// <param name="ipAddress">The <see cref="IPAddress"/>.</param>
-    void Add(AmsNetId amsNetId, IPAddress ipAddress);
+    void AddRoute(AmsNetId amsNetId, IPAddress ipAddress);
   }
 }

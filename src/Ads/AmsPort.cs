@@ -37,6 +37,15 @@ namespace Ads {
       }
     }
 
+    /// <summary>
+    /// Converts the given <see cref="AmsPort"/> to a byte array.
+    /// </summary>
+    /// <param name="instance">The instance to convert.</param>
+    /// <returns>A byte array.</returns>
+    public static implicit operator byte[](AmsPort instance) {
+      return BitConverter.GetBytes(instance._value);
+    }
+
     public override string ToString() {
       return _value.ToString();
     }

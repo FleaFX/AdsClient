@@ -48,7 +48,8 @@
     <Compile Include="AdsDeviceInfoTests.cs" />
     <Compile Include="AdsDeviceVersionTests.cs" />
     <Compile Include="AmsAddressTests.cs" />
-    <Compile Include="AmsHeaderTests.cs" />
+    <Compile Include="AmsPacketNetworkBufferWritingVisitorTests.cs" />
+    <Compile Include="AmsPacketTests.cs" />
     <Compile Include="AmsNetIdTests.cs" />
     <Compile Include="AmsPortTests.cs" />
     <Compile Include="AdsDeviceNameTests.cs" />

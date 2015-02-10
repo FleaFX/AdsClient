@@ -1,4 +1,5 @@
 ﻿using System;
+using FakeItEasy;
 using NUnit.Framework;
 
 namespace Ads {
@@ -39,6 +40,22 @@ namespace Ads {
     [Test]
     public void InequalNetIdAndInequalPortAreInequalInstances() {
       Assert.That(AmsAddress.Parse("192.168.10.14.1.1:801"), Is.Not.EqualTo(AmsAddress.Parse("192.168.10.14.1.2:802")));
+    }
+
+    [Test]
+    public void AcceptTraversesTheAddress() {
+      var visitor = A.Fake<IAmsAddressVisitor>();
+      var address = AmsAddress.Parse("192.168.10.14.1.1:1256");
+
+
+      using (var scope = Fake.CreateScope()) {
+        address.Accept(visitor);
+
+        using (scope.OrderedAssertions()) {
+          A.CallTo(() => visitor.Visit(AmsNetId.Parse("192.168.10.14.1.1"))).MustHaveHappened();
+          A.CallTo(() => visitor.Visit(new AmsPort(1256))).MustHaveHappened();
+        }
+      }
     }
   }
 }

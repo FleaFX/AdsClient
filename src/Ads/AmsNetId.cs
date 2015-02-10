@@ -5,32 +5,34 @@ using Ads.Properties;
 
 namespace Ads {
   /// <summary>
-  /// Extension to the TCP/IP address that identifies a TwinCAT message router.
+  ///   Extension to the TCP/IP address that identifies a TwinCAT message router.
   /// </summary>
   public struct AmsNetId {
-    readonly byte[] _value;
-
-    static readonly Regex ParseFormat = new Regex(@"^(?<b1>\d{1,3})\.(?<b2>\d{1,3})\.(?<b3>\d{1,3})\.(?<b4>\d{1,3})\.(?<b5>\d{1,3})\.(?<b6>\d{1,3})$");
+    static readonly Regex ParseFormat =
+      new Regex(@"^(?<b1>\d{1,3})\.(?<b2>\d{1,3})\.(?<b3>\d{1,3})\.(?<b4>\d{1,3})\.(?<b5>\d{1,3})\.(?<b6>\d{1,3})$");
 
     /// <summary>
-    /// Represents an empty <see cref="AmsNetId"/>.
+    ///   Represents an empty <see cref="AmsNetId" />.
     /// </summary>
     public static AmsNetId Empty = new AmsNetId();
 
+    readonly byte[] _value;
+
     /// <summary>
-    /// Creates a new <see cref="AmsNetId"/>.
+    ///   Creates a new <see cref="AmsNetId" />.
     /// </summary>
     /// <param name="value">The value.</param>
     public AmsNetId(params byte[] value) {
-      if (value != null && value.Length != 0 && value.Length != 6) throw new ArgumentOutOfRangeException("value", Resources.AmsNetIdValueOutOfRange);
+      if (value != null && value.Length != 0 && value.Length != 6)
+        throw new ArgumentOutOfRangeException("value", Resources.AmsNetIdValueOutOfRange);
       _value = value == null || value.SequenceEqual(new byte[0]) ? Empty._value : value;
     }
 
     /// <summary>
-    /// Attempts to parse a string representation of an AMS Net Id to its typed <see cref="AmsNetId"/> equivalent.
+    ///   Attempts to parse a string representation of an AMS Net Id to its typed <see cref="AmsNetId" /> equivalent.
     /// </summary>
     /// <param name="s">A string containing an AMS Net Id to convert.</param>
-    /// <param name="amsNetId">If successful, contains the resulting <see cref="AmsNetId"/>.</param>
+    /// <param name="amsNetId">If successful, contains the resulting <see cref="AmsNetId" />.</param>
     /// <returns><c>true</c> if the parsing was succesful, otherwise <c>false</c>.</returns>
     public static bool TryParse(string s, out AmsNetId amsNetId) {
       if (s == null) throw new ArgumentNullException("s");
@@ -50,7 +52,7 @@ namespace Ads {
     }
 
     /// <summary>
-    /// Converts the string representation of an AMS Net Id to its typed <see cref="AmsNetId"/> equivalent.
+    ///   Converts the string representation of an AMS Net Id to its typed <see cref="AmsNetId" /> equivalent.
     /// </summary>
     /// <param name="s">A string containing an AMS Net Id to convert.</param>
     /// <returns></returns>
@@ -69,13 +71,22 @@ namespace Ads {
       return new AmsNetId(amsNetIdParts.Select(byte.Parse).ToArray());
     }
 
+    /// <summary>
+    /// Converts the given <see cref="AmsNetId"/> to a byte array.
+    /// </summary>
+    /// <param name="instance">The instance to convert.</param>
+    /// <returns>A byte array.</returns>
+    public static implicit operator byte[](AmsNetId instance) {
+      return instance._value;
+    }
+
     public override string ToString() {
       return _value.Select(_ => _.ToString()).Aggregate((f, s) => string.Format("{0}.{1}", f, s));
     }
 
     public override bool Equals(object obj) {
       if (ReferenceEquals(null, obj)) return false;
-      return obj is AmsNetId && Equals((AmsNetId)obj);
+      return obj is AmsNetId && Equals((AmsNetId) obj);
     }
 
     public bool Equals(AmsNetId other) {
