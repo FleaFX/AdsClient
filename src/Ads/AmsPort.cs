@@ -46,6 +46,15 @@ namespace Ads {
       return BitConverter.GetBytes(instance._value);
     }
 
+    /// <summary>
+    /// Converts the given <see cref="AmsPort"/> to an <see cref="int"/>.
+    /// </summary>
+    /// <param name="instance">The instance to convert.</param>
+    /// <returns>An <see cref="int"/>.</returns>
+    public static implicit operator int(AmsPort instance) {
+      return (int) instance._value;
+    }
+
     public override string ToString() {
       return _value.ToString();
     }

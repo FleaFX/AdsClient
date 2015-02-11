@@ -52,6 +52,8 @@
     <Compile Include="IAdsDevice.cs" />
     <Compile Include="IAmsAddressVisitor.cs" />
     <Compile Include="IAmsPacketVisitor.cs" />
+    <Compile Include="IAmsPacketSender.cs" />
+    <Compile Include="Net\ITcpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,6 +65,7 @@
     <Compile Include="Routing\UnknownAmsAddressException.cs" />
     <Compile Include="StateFlags.cs" />
     <Compile Include="StateFlagsExtensions.cs" />
+    <Compile Include="TcpAmsPacketSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
