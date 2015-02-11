@@ -9,8 +9,8 @@ namespace Ads {
     readonly byte[] _headerBuffer;
     byte[] _payloadBuffer;
 
-    Action<AmsNetId> _visitNetId;
-    Action<AmsPort> _visitPort;
+    Action<AmsNetId> _visitNetId = amsNetId => { };
+    Action<AmsPort> _visitPort = amsPort => { };
 
     /// <summary>
     /// Creates a new <see cref="AmsPacketNetworkBufferWritingVisitor"/>.
@@ -25,15 +25,11 @@ namespace Ads {
     /// </summary>
     /// <param name="sourceAmsAddress">The source <see cref="AmsAddress"/>.</param>
     public void VisitSourceAmsAddress(AmsAddress sourceAmsAddress) {
-      _visitNetId = amsNetId => {
-        var amsNetIdBuffer = (byte[]) amsNetId;
-        Array.Copy(amsNetIdBuffer, 0, _headerBuffer, 0, amsNetIdBuffer.Length);
-      };
-      _visitPort = amsPort => {
-        var amsPortBuffer = (byte[]) amsPort;
-        Array.Copy(amsPortBuffer, 0, _headerBuffer, 6, amsPortBuffer.Length);
-      };
-      sourceAmsAddress.Accept(this);
+      using (new SetSourceNetId(this)) {
+        using (new SetSourcePort(this)) {
+          sourceAmsAddress.Accept(this);
+        }
+      }
     }
 
     /// <summary>
@@ -41,15 +37,11 @@ namespace Ads {
     /// </summary>
     /// <param name="targetAmsAddress">The target <see cref="AmsAddress"/>.</param>
     public void VisitTargetAmsAddress(AmsAddress targetAmsAddress) {
-      _visitNetId = amsNetId => {
-        var amsNetIdBuffer = (byte[])amsNetId;
-        Array.Copy(amsNetIdBuffer, 0, _headerBuffer, 8, amsNetIdBuffer.Length);
-      };
-      _visitPort = amsPort => {
-        var amsPortBuffer = (byte[])amsPort;
-        Array.Copy(amsPortBuffer, 0, _headerBuffer, 14, amsPortBuffer.Length);
-      };
-      targetAmsAddress.Accept(this);
+      using (new SetTargetNetId(this)) {
+        using (new SetTargetPort(this)) {
+          targetAmsAddress.Accept(this);
+        }
+      }
     }
 
     /// <summary>
@@ -57,7 +49,7 @@ namespace Ads {
     /// </summary>
     /// <param name="commandId">The <see cref="CommandId"/>.</param>
     public void VisitCommandId(CommandId commandId) {
-      var commandIdBuffer = BitConverter.GetBytes((ushort) commandId);
+      var commandIdBuffer = BitConverter.GetBytes((ushort)commandId);
       Array.Copy(commandIdBuffer, 0, _headerBuffer, 16, commandIdBuffer.Length);
     }
 
@@ -102,6 +94,46 @@ namespace Ads {
     /// <returns>A byte array.</returns>
     public byte[] GetBuffer() {
       return _headerBuffer.Concat(_payloadBuffer).ToArray();
+    }
+
+    class SetSourceNetId : DisposableAction {
+      public SetSourceNetId(AmsPacketNetworkBufferWritingVisitor owner)
+        : base(() => { owner._visitNetId = amsNetId => { }; }) {
+        owner._visitNetId = amsNetId => {
+          var amsNetIdBuffer = (byte[])amsNetId;
+          Array.Copy(amsNetIdBuffer, 0, owner._headerBuffer, 0, amsNetIdBuffer.Length);
+        };
+      }
+    }
+
+    class SetTargetNetId : DisposableAction {
+      public SetTargetNetId(AmsPacketNetworkBufferWritingVisitor owner)
+        : base(() => { owner._visitNetId = amsNetId => { }; }) {
+        owner._visitNetId = amsNetId => {
+          var amsNetIdBuffer = (byte[])amsNetId;
+          Array.Copy(amsNetIdBuffer, 0, owner._headerBuffer, 8, amsNetIdBuffer.Length);
+        };
+      }
+    }
+
+    class SetSourcePort : DisposableAction {
+      public SetSourcePort(AmsPacketNetworkBufferWritingVisitor owner)
+        : base(() => { owner._visitPort = amsPort => { }; }) {
+        owner._visitPort = amsPort => {
+          var amsPortBuffer = (byte[])amsPort;
+          Array.Copy(amsPortBuffer, 0, owner._headerBuffer, 6, amsPortBuffer.Length);
+        };
+      }
+    }
+
+    class SetTargetPort : DisposableAction {
+      public SetTargetPort(AmsPacketNetworkBufferWritingVisitor owner)
+        : base(() => { owner._visitPort = amsPort => { }; }) {
+        owner._visitPort = amsPort => {
+          var amsPortBuffer = (byte[])amsPort;
+          Array.Copy(amsPortBuffer, 0, owner._headerBuffer, 14, amsPortBuffer.Length);
+        };
+      }
     }
   }
 }
