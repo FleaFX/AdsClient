@@ -25,10 +25,8 @@ namespace Ads {
     /// </summary>
     /// <param name="sourceAmsAddress">The source <see cref="AmsAddress"/>.</param>
     public void VisitSourceAmsAddress(AmsAddress sourceAmsAddress) {
-      using (new SetSourceNetId(this)) {
-        using (new SetSourcePort(this)) {
-          sourceAmsAddress.Accept(this);
-        }
+      using (new SetSourceNetId(this) + new SetSourcePort(this)) {
+        sourceAmsAddress.Accept(this);
       }
     }
 
@@ -37,10 +35,8 @@ namespace Ads {
     /// </summary>
     /// <param name="targetAmsAddress">The target <see cref="AmsAddress"/>.</param>
     public void VisitTargetAmsAddress(AmsAddress targetAmsAddress) {
-      using (new SetTargetNetId(this)) {
-        using (new SetTargetPort(this)) {
-          targetAmsAddress.Accept(this);
-        }
+      using (new SetTargetNetId(this) + new SetTargetPort(this)) {
+        targetAmsAddress.Accept(this);
       }
     }
 

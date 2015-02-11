@@ -4,7 +4,7 @@ namespace Ads {
   /// <summary>
   /// Utility class to perform an action upon disposing the instance.
   /// </summary>
-  internal abstract class DisposableAction : IDisposable {
+  internal class DisposableAction : IDisposable {
     readonly Action _disposeAction;
 
     /// <summary>
@@ -14,6 +14,17 @@ namespace Ads {
     protected DisposableAction(Action disposeAction) {
       if (disposeAction == null) throw new ArgumentNullException("disposeAction");
       _disposeAction = disposeAction;
+    }
+
+    /// <summary>
+    /// This way you can chain actions together in a single using statement.
+    /// </summary>
+    /// <returns>A <see cref="DisposableAction"/>.</returns>
+    public static DisposableAction operator +(DisposableAction first, DisposableAction second) {
+      return new DisposableAction(() => {
+        first.Dispose();
+        second.Dispose();
+      });
     }
 
     /// <summary>
