@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Ads.Properties;
 
 namespace Ads {
@@ -43,6 +44,41 @@ namespace Ads {
       visitor.VisitCommandId(_commandId);
       visitor.VisitStateFlags(_stateFlags);
       visitor.VisitPayload(_payload);
+    }
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    /// </summary>
+    /// <returns>
+    /// true if the specified object  is equal to the current object; otherwise, false.
+    /// </returns>
+    /// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+    public override bool Equals(object obj) {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      return obj.GetType() == this.GetType() && Equals((AmsPacket) obj);
+    }
+
+    protected bool Equals(AmsPacket other) {
+      return Equals(_source, other._source) && Equals(_target, other._target) && _commandId == other._commandId && _stateFlags == other._stateFlags && _payload.SequenceEqual(other._payload);
+    }
+
+    /// <summary>
+    /// Serves as a hash function for a particular type. 
+    /// </summary>
+    /// <returns>
+    /// A hash code for the current object.
+    /// </returns>
+    /// <filterpriority>2</filterpriority>
+    public override int GetHashCode() {
+      unchecked {
+        int hashCode = (_source != null ? _source.GetHashCode() : 0);
+        hashCode = (hashCode*397) ^ (_target != null ? _target.GetHashCode() : 0);
+        hashCode = (hashCode*397) ^ (int) _commandId;
+        hashCode = (hashCode*397) ^ (int) _stateFlags;
+        hashCode = (hashCode*397) ^ (_payload != null ? _payload.GetHashCode() : 0);
+        return hashCode;
+      }
     }
   }
 }

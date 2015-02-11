@@ -44,17 +44,30 @@ namespace Ads {
       return string.Format("{0}:{1}", _amsNetId, _amsPort);
     }
 
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    /// </summary>
+    /// <returns>
+    /// true if the specified object  is equal to the current object; otherwise, false.
+    /// </returns>
+    /// <param name="obj">The object to compare with the current object. </param><filterpriority>2</filterpriority>
+    public override bool Equals(object obj) {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      return obj.GetType() == this.GetType() && Equals((AmsAddress)obj);
+    }
+
     protected bool Equals(AmsAddress other) {
       return _amsNetId.Equals(other._amsNetId) && _amsPort.Equals(other._amsPort);
     }
 
-    public override bool Equals(object obj) {
-      if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
-      return Equals((AmsAddress)obj);
-    }
-
+    /// <summary>
+    /// Serves as a hash function for a particular type. 
+    /// </summary>
+    /// <returns>
+    /// A hash code for the current object.
+    /// </returns>
+    /// <filterpriority>2</filterpriority>
     public override int GetHashCode() {
       unchecked {
         return (_amsNetId.GetHashCode() * 397) ^ _amsPort.GetHashCode();

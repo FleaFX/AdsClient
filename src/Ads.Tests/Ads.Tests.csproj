@@ -53,6 +53,7 @@
     <Compile Include="AmsNetIdTests.cs" />
     <Compile Include="AmsPortTests.cs" />
     <Compile Include="AdsDeviceNameTests.cs" />
+    <Compile Include="Commands\ReadDeviceInfoCommandRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\InMemoryAmsAddressRouterTests.cs" />
   </ItemGroup>

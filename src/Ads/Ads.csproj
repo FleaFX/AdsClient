@@ -48,6 +48,7 @@
     <Compile Include="AmsPort.cs" />
     <Compile Include="CommandId.cs" />
     <Compile Include="AdsDeviceName.cs" />
+    <Compile Include="Commands\ReadDeviceInfoCommandRequest.cs" />
     <Compile Include="IAdsDevice.cs" />
     <Compile Include="IAmsAddressVisitor.cs" />
     <Compile Include="IAmsPacketVisitor.cs" />
