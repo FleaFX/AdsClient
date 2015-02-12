@@ -33,12 +33,11 @@ namespace Ads {
 
       var tcpAmsPacketSender = new TcpAmsPacketSender(amsAddressRouter, tcpClient);
       var packet = (AmsPacket)new ReadDeviceInfoCommandRequest(AmsAddress.Parse("127.0.0.1.1.1:1275"), AmsAddress.Parse("192.168.10.14.1.1:801"));
-      var bufferWritingVisitor = new AmsPacketNetworkBufferWritingVisitor();
-      packet.Accept(bufferWritingVisitor);
+      var buffer = new Buffer();
+      packet.Accept(new AmsPacketNetworkBufferWritingVisitor(buffer));
 
       await tcpAmsPacketSender.Send(packet);
 
-      var buffer = bufferWritingVisitor.GetBuffer();
       A.CallTo(() => networkStream.WriteAsync(A<byte[]>.That.Matches(b =>
         b.Take(6).SequenceEqual(new byte[] { 0, 0, 32, 0, 0, 0}) && // AMS/TCP header
         b.Skip(6).SequenceEqual(buffer)), // AMS header + data

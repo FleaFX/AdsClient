@@ -46,6 +46,7 @@
     <Compile Include="AmsNetId.cs" />
     <Compile Include="AmsPacketNetworkBufferWritingVisitor.cs" />
     <Compile Include="AmsPort.cs" />
+    <Compile Include="Buffer.cs" />
     <Compile Include="CommandId.cs" />
     <Compile Include="AdsDeviceName.cs" />
     <Compile Include="Commands\ReadDeviceInfoCommandRequest.cs" />

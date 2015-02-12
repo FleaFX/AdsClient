@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Linq;
 
 namespace Ads {
   /// <summary>
   /// <see cref="IAmsPacketVisitor"/> that writes the contents of an <see cref="AmsPacket"/> to a byte array to be sent over the network.
   /// </summary>
   public class AmsPacketNetworkBufferWritingVisitor : IAmsPacketVisitor, IAmsAddressVisitor {
-    readonly byte[] _headerBuffer;
-    byte[] _payloadBuffer;
+    readonly Buffer _buffer;
 
     Action<AmsNetId> _visitNetId = amsNetId => { };
     Action<AmsPort> _visitPort = amsPort => { };
@@ -15,9 +13,9 @@ namespace Ads {
     /// <summary>
     /// Creates a new <see cref="AmsPacketNetworkBufferWritingVisitor"/>.
     /// </summary>
-    public AmsPacketNetworkBufferWritingVisitor() {
-      _headerBuffer = new byte[32];
-      _payloadBuffer = new byte[0];
+    public AmsPacketNetworkBufferWritingVisitor(Buffer buffer) {
+      _buffer = buffer;
+      _buffer.ResizeTail(32);
     }
 
     /// <summary>
@@ -46,7 +44,7 @@ namespace Ads {
     /// <param name="commandId">The <see cref="CommandId"/>.</param>
     public void VisitCommandId(CommandId commandId) {
       var commandIdBuffer = BitConverter.GetBytes((ushort)commandId);
-      Array.Copy(commandIdBuffer, 0, _headerBuffer, 16, commandIdBuffer.Length);
+      _buffer.Set(commandIdBuffer, 16, commandIdBuffer.Length);
     }
 
     /// <summary>
@@ -55,7 +53,7 @@ namespace Ads {
     /// <param name="stateFlags">The <see cref="StateFlags"/>.</param>
     public void VisitStateFlags(StateFlags stateFlags) {
       var stateFlagsBuffer = BitConverter.GetBytes((ushort)stateFlags);
-      Array.Copy(stateFlagsBuffer, 0, _headerBuffer, 18, stateFlagsBuffer.Length);
+      _buffer.Set(stateFlagsBuffer, 18, stateFlagsBuffer.Length);
     }
 
     /// <summary>
@@ -64,8 +62,9 @@ namespace Ads {
     /// <param name="payload">The payload.</param>
     public void VisitPayload(byte[] payload) {
       var lengthBuffer = BitConverter.GetBytes(payload.Length);
-      Array.Copy(lengthBuffer, 0, _headerBuffer, 20, lengthBuffer.Length);
-      _payloadBuffer = (byte[])payload.Clone();
+      _buffer.Set(lengthBuffer, 20, lengthBuffer.Length);
+      _buffer.ResizeTail(_buffer.Length + payload.Length);
+      _buffer.Set(payload, 32, payload.Length);
     }
 
     /// <summary>
@@ -84,20 +83,12 @@ namespace Ads {
       _visitPort(amsPort);
     }
 
-    /// <summary>
-    /// Gets the buffer at its current state.
-    /// </summary>
-    /// <returns>A byte array.</returns>
-    public byte[] GetBuffer() {
-      return _headerBuffer.Concat(_payloadBuffer).ToArray();
-    }
-
     class SetSourceNetId : DisposableAction {
       public SetSourceNetId(AmsPacketNetworkBufferWritingVisitor owner)
         : base(() => { owner._visitNetId = amsNetId => { }; }) {
         owner._visitNetId = amsNetId => {
           var amsNetIdBuffer = (byte[])amsNetId;
-          Array.Copy(amsNetIdBuffer, 0, owner._headerBuffer, 0, amsNetIdBuffer.Length);
+          owner._buffer.Set(amsNetIdBuffer, 0, amsNetIdBuffer.Length);
         };
       }
     }
@@ -107,7 +98,7 @@ namespace Ads {
         : base(() => { owner._visitNetId = amsNetId => { }; }) {
         owner._visitNetId = amsNetId => {
           var amsNetIdBuffer = (byte[])amsNetId;
-          Array.Copy(amsNetIdBuffer, 0, owner._headerBuffer, 8, amsNetIdBuffer.Length);
+          owner._buffer.Set(amsNetIdBuffer, 8, amsNetIdBuffer.Length);
         };
       }
     }
@@ -117,7 +108,7 @@ namespace Ads {
         : base(() => { owner._visitPort = amsPort => { }; }) {
         owner._visitPort = amsPort => {
           var amsPortBuffer = (byte[])amsPort;
-          Array.Copy(amsPortBuffer, 0, owner._headerBuffer, 6, amsPortBuffer.Length);
+          owner._buffer.Set(amsPortBuffer, 6, amsPortBuffer.Length);
         };
       }
     }
@@ -127,7 +118,7 @@ namespace Ads {
         : base(() => { owner._visitPort = amsPort => { }; }) {
         owner._visitPort = amsPort => {
           var amsPortBuffer = (byte[])amsPort;
-          Array.Copy(amsPortBuffer, 0, owner._headerBuffer, 14, amsPortBuffer.Length);
+          owner._buffer.Set(amsPortBuffer, 14, amsPortBuffer.Length);
         };
       }
     }
