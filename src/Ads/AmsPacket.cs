@@ -56,7 +56,7 @@ namespace Ads {
     public override bool Equals(object obj) {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
-      return obj.GetType() == this.GetType() && Equals((AmsPacket) obj);
+      return obj.GetType() == GetType() && Equals((AmsPacket) obj);
     }
 
     protected bool Equals(AmsPacket other) {

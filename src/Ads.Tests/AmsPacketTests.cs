@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using FakeItEasy;
-using FakeItEasy.ExtensionSyntax.Full;
 using NUnit.Framework;
 
 namespace Ads {
