@@ -33,15 +33,11 @@ namespace Ads {
       await _tcpClient.ConnectAsync(targetIpAddress, _targetAmsPort);
       using (var stream = _tcpClient.GetStream()) {
         var buffer = new Buffer();
-        var bufferVisitor = new AmsPacketNetworkBufferWritingVisitor(buffer);
-        amsPacket.Accept(bufferVisitor);
-        var tcpHeader = new byte[6];
-        Array.Copy(Enumerable.Repeat<byte>(0, 2).ToArray(), tcpHeader, 2);
-        Array.Copy(BitConverter.GetBytes(buffer.Length), 0, tcpHeader, 2, 4);
-        var fullPacket = new byte[tcpHeader.Length + buffer.Length];
-        Array.Copy(tcpHeader, fullPacket, tcpHeader.Length);
-        Array.Copy(buffer.ToArray(), 0, fullPacket, tcpHeader.Length, buffer.Length);
-        await stream.WriteAsync(fullPacket, 0, fullPacket.Length);
+        amsPacket.Accept(new AmsPacketNetworkBufferWritingVisitor(buffer));
+        buffer.ResizeHead(6 + buffer.Length).
+          Set(new byte[] { 0, 0}, 0, 2).                    // leading zeroes of AMS/TCP header
+          Set(BitConverter.GetBytes(buffer.Length), 2, 4);  // length of the full packet
+        await stream.WriteAsync(buffer.ToArray(), 0, buffer.Length);
       }
     }
 

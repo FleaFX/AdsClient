@@ -57,9 +57,9 @@ namespace Ads {
     /// <summary>
     /// Sets the values of the buffer at the given places.
     /// </summary>
-    /// <param name="values">The new values.</param>
-    /// <param name="index">The index of where to start setting the values.</param>
-    /// <param name="count">The number of values to set.</param>
+    /// <param name="values">Array holding the values to set.</param>
+    /// <param name="index">The index in the buffer of where to start setting the values.</param>
+    /// <param name="count">The number of values to take from the given values array.</param>
     /// <returns>The new <see cref="Buffer"/>.</returns>
     public Buffer Set(byte[] values, int index, int count) {
       if (values == null) throw new ArgumentNullException("values");
@@ -72,7 +72,7 @@ namespace Ads {
     }
 
     /// <summary>
-    /// Returns an enumerator that iterates through the collection.
+    /// Returns an enumerator that iterates through the buffer.
     /// </summary>
     /// <returns>
     /// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
@@ -83,7 +83,7 @@ namespace Ads {
     }
 
     /// <summary>
-    /// Returns an enumerator that iterates through a collection.
+    /// Returns an enumerator that iterates through a buffer.
     /// </summary>
     /// <returns>
     /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
