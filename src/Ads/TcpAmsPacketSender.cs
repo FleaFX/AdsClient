@@ -34,9 +34,10 @@ namespace Ads {
       using (var stream = _tcpClient.GetStream()) {
         var buffer = new Buffer();
         amsPacket.Accept(new AmsPacketNetworkBufferWritingVisitor(buffer));
+        var bufferSize = buffer.Length;
         buffer.ResizeHead(6 + buffer.Length).
           Set(new byte[] { 0, 0}, 0, 2).                    // leading zeroes of AMS/TCP header
-          Set(BitConverter.GetBytes(buffer.Length), 2, 4);  // length of the full packet
+          Set(BitConverter.GetBytes(bufferSize), 2, 4);  // length of the full packet
         await stream.WriteAsync(buffer.ToArray(), 0, buffer.Length);
       }
     }
