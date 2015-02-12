@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 namespace Ads.Net {
-  public interface IConnection {
+  public interface INetworkConnection {
     /// <summary>
     /// Sends the given bytes to the other end of the connection.
     /// </summary>

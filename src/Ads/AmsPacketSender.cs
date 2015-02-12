@@ -7,15 +7,15 @@ namespace Ads {
   /// Sends <see cref="AmsPacket">AMS packets</see> over TCP/IP.
   /// </summary>
   public class AmsPacketSender : IAmsPacketSender {
-    readonly IConnection _connection;
+    readonly INetworkConnection _networkConnection;
 
     /// <summary>
     /// Creates a new <see cref="AmsPacketSender"/>.
     /// </summary>
-    /// <param name="connection">The <see cref="IConnection"/> to use.</param>
-    public AmsPacketSender(IConnection connection) {
-      if (connection == null) throw new ArgumentNullException("connection");
-      _connection = connection;
+    /// <param name="networkConnection">The <see cref="INetworkConnection"/> to use.</param>
+    public AmsPacketSender(INetworkConnection networkConnection) {
+      if (networkConnection == null) throw new ArgumentNullException("networkConnection");
+      _networkConnection = networkConnection;
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace Ads {
       var buffer = new Buffer();
       amsPacket.Accept(new AmsPacketNetworkBufferWritingVisitor(buffer));
       buffer.PrependAmsTcpHeader();
-      await _connection.WriteAsync(buffer, 0, buffer.Length);
+      await _networkConnection.WriteAsync(buffer, 0, buffer.Length);
     }
   }
 }

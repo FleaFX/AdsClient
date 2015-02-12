@@ -62,9 +62,10 @@ namespace Ads {
     /// <param name="payload">The payload.</param>
     public void VisitPayload(byte[] payload) {
       var lengthBuffer = BitConverter.GetBytes(payload.Length);
-      _buffer.Set(lengthBuffer, 20, lengthBuffer.Length);
-      _buffer.ResizeTail(_buffer.Length + payload.Length);
-      _buffer.Set(payload, 32, payload.Length);
+      _buffer.
+        Set(lengthBuffer, 20, lengthBuffer.Length).
+        ResizeTail(_buffer.Length + payload.Length).
+        Set(payload, 32, payload.Length);
     }
 
     /// <summary>

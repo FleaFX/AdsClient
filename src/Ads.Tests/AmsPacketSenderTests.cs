@@ -16,13 +16,13 @@ namespace Ads {
 
     [Test]
     public void SendRequiresPacket() {
-      var sender = new AmsPacketSender(A.Dummy<IConnection>());
+      var sender = new AmsPacketSender(A.Dummy<INetworkConnection>());
       Assert.Throws<ArgumentNullException>(async () => await sender.Send(null));
     }
 
     [Test]
     public async void SendWritesPacketBytesToConnection() {
-      var connection = A.Fake<IConnection>();
+      var connection = A.Fake<INetworkConnection>();
       var packet = (AmsPacket)new ReadDeviceInfoCommandRequest(AmsAddress.Parse("127.0.0.1.1.1:1275"), AmsAddress.Parse("192.168.10.14.1.1:801"));
 
       var expectedSentBytes = new Buffer();

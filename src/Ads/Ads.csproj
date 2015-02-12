@@ -56,7 +56,7 @@
     <Compile Include="IAmsAddressVisitor.cs" />
     <Compile Include="IAmsPacketVisitor.cs" />
     <Compile Include="IAmsPacketSender.cs" />
-    <Compile Include="Net\IConnection.cs" />
+    <Compile Include="Net\INetworkConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
