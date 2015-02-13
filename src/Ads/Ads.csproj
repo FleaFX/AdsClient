@@ -45,6 +45,7 @@
     <Compile Include="AmsPacket.cs" />
     <Compile Include="AmsNetId.cs" />
     <Compile Include="AmsPacketNetworkBufferWritingVisitor.cs" />
+    <Compile Include="AmsPacketReceiver.cs" />
     <Compile Include="AmsPort.cs" />
     <Compile Include="Buffer.cs" />
     <Compile Include="BufferAmsExtensions.cs" />
@@ -52,8 +53,11 @@
     <Compile Include="AdsDeviceName.cs" />
     <Compile Include="Commands\ReadDeviceInfoCommandRequest.cs" />
     <Compile Include="DisposableAction.cs" />
+    <Compile Include="ErrorCode.cs" />
+    <Compile Include="IAdapter.cs" />
     <Compile Include="IAdsDevice.cs" />
     <Compile Include="IAmsAddressVisitor.cs" />
+    <Compile Include="IAmsPacketReceiver.cs" />
     <Compile Include="IAmsPacketVisitor.cs" />
     <Compile Include="IAmsPacketSender.cs" />
     <Compile Include="Net\INetworkConnection.cs" />
