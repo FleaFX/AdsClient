@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Ads.Adapters;
 using Ads.Net;
 using FakeItEasy;
 using NUnit.Framework;

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Ads {
+namespace Ads.Adapters {
   [TestFixture]
   public class AmsPacketAdapterTests {
     IAdapter<byte[], AmsPacket> _adapter;

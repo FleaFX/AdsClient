@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Ads {
+namespace Ads.Adapters {
   public class AmsPacketAdapter : IAdapter<byte[], AmsPacket> {
     /// <summary>
     /// Adapts a <see><cref>byte[]</cref></see> to produce a <see cref="AmsPacket"/>.

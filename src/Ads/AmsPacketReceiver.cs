@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Ads.Adapters;
 using Ads.Net;
 
 namespace Ads {

@@ -45,10 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AdsDeviceInfoAdapterTests.cs" />
     <Compile Include="AdsDeviceInfoTests.cs" />
     <Compile Include="AdsDeviceVersionTests.cs" />
     <Compile Include="AmsAddressTests.cs" />
-    <Compile Include="AmsPacketAdapterTests.cs" />
+    <Compile Include="Adapters\AmsPacketAdapterTests.cs" />
     <Compile Include="AmsPacketNetworkBufferWritingVisitorTests.cs" />
     <Compile Include="AmsPacketReceiverTests.cs" />
     <Compile Include="AmsPacketTests.cs" />

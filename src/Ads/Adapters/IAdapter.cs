@@ -1,4 +1,4 @@
-﻿namespace Ads {
+﻿namespace Ads.Adapters {
   /// <summary>
   /// Makes adaptations to an incoming <typeparamref name="TIn"/> to produce a <typeparamref name="TOut"/>.
   /// </summary>

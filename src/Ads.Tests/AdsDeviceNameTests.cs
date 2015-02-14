@@ -51,6 +51,14 @@ namespace Ads {
     }
 
     [Test]
+    public void NamesAreConsideredEqualWithTrailingZeroBytesIgnored() {
+      var byteArrayWitoutTrailingZeroes = Encoding.UTF8.GetBytes("Device1");
+      var byteArrayWithTrailingZeros = Enumerable.Repeat<byte>(0, 16).ToArray();
+      Array.Copy(byteArrayWitoutTrailingZeroes, byteArrayWithTrailingZeros, byteArrayWitoutTrailingZeroes.Length);
+      Assert.That(new AdsDeviceName(byteArrayWitoutTrailingZeroes), Is.EqualTo(new AdsDeviceName(byteArrayWithTrailingZeros)));
+    }
+
+    [Test]
     public void ToStringReturnsByteArrayInterpretedAsUtf8() {
       var deviceName = new AdsDeviceName(Encoding.UTF8.GetBytes("Deviceµ"));
       Assert.That(deviceName.ToString(), Is.EqualTo("Deviceµ"));

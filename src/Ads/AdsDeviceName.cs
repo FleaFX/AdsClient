@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using Ads.Properties;
 
@@ -27,7 +28,7 @@ namespace Ads {
     public AdsDeviceName(byte[] value) {
       if (value == null) throw new ArgumentNullException("value");
       if (value.Length > 16) throw new OverflowException(Resources.DeviceNameOverflow);
-      _value = Encoding.UTF8.GetString(value);
+      _value = Encoding.UTF8.GetString(value.Reverse().SkipWhile(c => c == 0).Reverse().ToArray());
     }
 
     /// <summary>
