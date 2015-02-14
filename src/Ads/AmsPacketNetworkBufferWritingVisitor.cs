@@ -43,7 +43,7 @@ namespace Ads {
     /// </summary>
     /// <param name="commandId">The <see cref="CommandId"/>.</param>
     public void VisitCommandId(CommandId commandId) {
-      var commandIdBuffer = BitConverter.GetBytes((ushort)commandId);
+      var commandIdBuffer = BitConverter.GetBytes((ushort)commandId).BigEndian();
       _buffer.Set(commandIdBuffer, 16, commandIdBuffer.Length);
     }
 
@@ -52,7 +52,7 @@ namespace Ads {
     /// </summary>
     /// <param name="stateFlags">The <see cref="StateFlags"/>.</param>
     public void VisitStateFlags(StateFlags stateFlags) {
-      var stateFlagsBuffer = BitConverter.GetBytes((ushort)stateFlags);
+      var stateFlagsBuffer = BitConverter.GetBytes((ushort)stateFlags).BigEndian();
       _buffer.Set(stateFlagsBuffer, 18, stateFlagsBuffer.Length);
     }
 
@@ -61,7 +61,7 @@ namespace Ads {
     /// </summary>
     /// <param name="payload">The payload.</param>
     public void VisitPayload(byte[] payload) {
-      var lengthBuffer = BitConverter.GetBytes(payload.Length);
+      var lengthBuffer = BitConverter.GetBytes(payload.Length).BigEndian();
       _buffer.
         Set(lengthBuffer, 20, lengthBuffer.Length).
         ResizeTail(_buffer.Length + payload.Length).
@@ -89,7 +89,7 @@ namespace Ads {
         : base(() => { owner._visitNetId = amsNetId => { }; }) {
         owner._visitNetId = amsNetId => {
           var amsNetIdBuffer = (byte[])amsNetId;
-          owner._buffer.Set(amsNetIdBuffer, 0, amsNetIdBuffer.Length);
+          owner._buffer.Set(amsNetIdBuffer.BigEndian(), 0, amsNetIdBuffer.Length);
         };
       }
     }
@@ -99,7 +99,7 @@ namespace Ads {
         : base(() => { owner._visitNetId = amsNetId => { }; }) {
         owner._visitNetId = amsNetId => {
           var amsNetIdBuffer = (byte[])amsNetId;
-          owner._buffer.Set(amsNetIdBuffer, 8, amsNetIdBuffer.Length);
+          owner._buffer.Set(amsNetIdBuffer.BigEndian(), 8, amsNetIdBuffer.Length);
         };
       }
     }
@@ -109,7 +109,7 @@ namespace Ads {
         : base(() => { owner._visitPort = amsPort => { }; }) {
         owner._visitPort = amsPort => {
           var amsPortBuffer = (byte[])amsPort;
-          owner._buffer.Set(amsPortBuffer, 6, amsPortBuffer.Length);
+          owner._buffer.Set(amsPortBuffer.BigEndian(), 6, amsPortBuffer.Length);
         };
       }
     }
@@ -119,7 +119,7 @@ namespace Ads {
         : base(() => { owner._visitPort = amsPort => { }; }) {
         owner._visitPort = amsPort => {
           var amsPortBuffer = (byte[])amsPort;
-          owner._buffer.Set(amsPortBuffer, 14, amsPortBuffer.Length);
+          owner._buffer.Set(amsPortBuffer.BigEndian(), 14, amsPortBuffer.Length);
         };
       }
     }

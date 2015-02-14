@@ -2,7 +2,7 @@
 
 namespace Ads {
   public struct AmsPort {
-    readonly uint _value;
+    readonly ushort _value;
 
     // Reserved port numbers:
     public static readonly AmsPort Logger = new AmsPort(100);
@@ -23,13 +23,13 @@ namespace Ads {
     /// Creates a new <see cref="AmsPort"/>.
     /// </summary>
     /// <param name="value">The value.</param>
-    public AmsPort(uint value) {
+    public AmsPort(ushort value) {
       _value = value;
     }
 
     public static bool TryParse(string s, out AmsPort amsPort) {
       try {
-        amsPort = new AmsPort(uint.Parse(s));
+        amsPort = new AmsPort(ushort.Parse(s));
         return true;
       } catch (Exception) {
         amsPort = new AmsPort();

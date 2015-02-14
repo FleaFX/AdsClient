@@ -6,7 +6,7 @@ namespace Ads.Adapters {
     /// <summary>
     /// Adapts a <see><cref>byte[]</cref></see> to produce a <see cref="AmsPacket"/>.
     /// </summary>
-    /// <param name="subject">The object being adapter.</param>
+    /// <param name="subject">The object being adapted.</param>
     /// <returns>A <see cref="AmsPacket"/>.</returns>
     public AmsPacket Adapt(byte[] subject) {
       // TODO: find out if bytes are big endian or little endian

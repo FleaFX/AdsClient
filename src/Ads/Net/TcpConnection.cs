@@ -1,23 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Ads.Net {
-  /// <summary>
-  /// TCP/IP implementation of <see cref="INetworkConnection"/>.
-  /// </summary>
-  public class TcpConnection : INetworkConnection, IDisposable {
+  public class TcpConnection : INetworkConnection {
+    readonly TcpClient _client;
     readonly NetworkStream _stream;
 
-    /// <summary>
-    /// Creates a new <see cref="TcpConnection"/>.
-    /// </summary>
-    /// <param name="stream"></param>
-    public TcpConnection(NetworkStream stream) {
-      if (stream == null) throw new ArgumentNullException("stream");
-      _stream = stream;
+    public TcpConnection(TcpClient client) {
+      if (client == null) throw new ArgumentNullException("client");
+      _client = client;
+      _stream = _client.GetStream();
     }
 
     /// <summary>
@@ -27,9 +21,26 @@ namespace Ads.Net {
     /// <param name="offset">The offset in the given collection from where to begin copying to the stream.</param>
     /// <param name="count">The number of bytes to copy to the stream.</param>
     /// <returns>A <see cref="Task"/>.</returns>
-    public Task WriteAsync(IEnumerable<byte> buffer, int offset, int count) {
-      return _stream.WriteAsync(buffer.ToArray(), offset, count);
+    public Task WriteAsync(byte[] buffer, int offset, int count) {
+      return _stream.WriteAsync(buffer, offset, count);
     }
+
+    /// <summary>
+    /// Asynchronously reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+    /// </summary>
+    /// <param name="buffer">The buffer to write the data into.</param>
+    /// <param name="offset">The byte offset in buffer at which to begin writing data from the stream.</param>
+    /// <param name="count">The maximum number of bytes to read.</param>
+    /// <returns>A task that represents the asynchronous read operation. The value of the TResult parameter contains the total number of bytes read into the buffer. The result value can be less than the number of bytes requested if the number of bytes currently available is less than the requested number, or it can be 0 (zero) if the end of the stream has been reached.</returns>
+    public Task<int> ReadAsync(byte[] buffer, int offset, int count) {
+      return _stream.ReadAsync(buffer, offset, count);
+    }
+
+    /// <summary>
+    /// Gets a value that indicates whether data is available on the NetworkStream to be read.
+    /// </summary>
+    /// <value><c>true</c> if data is available on the stream to be read; otherwise, <c>false</c>.</value>
+    public bool DataAvailable { get { return _stream.DataAvailable; } }
 
     bool _disposed;
 
@@ -43,9 +54,13 @@ namespace Ads.Net {
     }
 
     protected void Dispose(bool disposing) {
-      if (disposing) {
-        if (!_disposed) {
+      if (!_disposed) {
+        if (disposing) {
+          _stream.Close();
           _stream.Dispose();
+
+          _client.Close();
+          ((IDisposable)_client).Dispose();
         }
         _disposed = true;
       }

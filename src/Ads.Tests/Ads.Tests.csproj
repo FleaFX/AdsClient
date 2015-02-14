@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Adapters\AdsDeviceInfoAdapterTests.cs" />
     <Compile Include="AdsDeviceInfoTests.cs" />
+    <Compile Include="AdsDeviceTests.cs" />
     <Compile Include="AdsDeviceVersionTests.cs" />
     <Compile Include="AmsAddressTests.cs" />
     <Compile Include="Adapters\AmsPacketAdapterTests.cs" />
@@ -57,7 +58,8 @@
     <Compile Include="AmsPortTests.cs" />
     <Compile Include="AdsDeviceNameTests.cs" />
     <Compile Include="BufferTests.cs" />
-    <Compile Include="Commands\ReadDeviceInfoCommandRequestTests.cs" />
+    <Compile Include="Commands\ReadDeviceInfoCommandTests.cs" />
+    <Compile Include="IntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\InMemoryAmsAddressRouterTests.cs" />
     <Compile Include="AmsPacketSenderTests.cs" />

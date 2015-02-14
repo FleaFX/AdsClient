@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Ads.Net;
 
@@ -28,7 +29,7 @@ namespace Ads {
       var buffer = new Buffer();
       amsPacket.Accept(new AmsPacketNetworkBufferWritingVisitor(buffer));
       buffer.PrependAmsTcpHeader();
-      await _networkConnection.WriteAsync(buffer, 0, buffer.Length);
+      await _networkConnection.WriteAsync(buffer.ToArray(), 0, buffer.Length);
     }
   }
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Ads.Net {
-  public interface INetworkConnection {
+  public interface INetworkConnection : IDisposable {
     /// <summary>
     /// Sends the given bytes to the other end of the connection.
     /// </summary>
@@ -10,7 +11,7 @@ namespace Ads.Net {
     /// <param name="offset">The offset in the given collection from where to begin copying to the stream.</param>
     /// <param name="count">The number of bytes to copy to the stream.</param>
     /// <returns>A <see cref="Task"/>.</returns>
-    Task WriteAsync(IEnumerable<byte> buffer, int offset, int count);
+    Task WriteAsync(byte[] buffer, int offset, int count);
 
     /// <summary>
     /// Asynchronously reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.

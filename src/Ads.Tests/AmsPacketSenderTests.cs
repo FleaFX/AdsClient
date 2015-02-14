@@ -23,7 +23,7 @@ namespace Ads {
     [Test]
     public async void SendWritesPacketBytesToConnection() {
       var connection = A.Fake<INetworkConnection>();
-      var packet = (AmsPacket)new ReadDeviceInfoCommandRequest(AmsAddress.Parse("127.0.0.1.1.1:1275"), AmsAddress.Parse("192.168.10.14.1.1:801"));
+      var packet = (AmsPacket)new ReadDeviceInfoCommand(AmsAddress.Parse("127.0.0.1.1.1:1275"), AmsAddress.Parse("192.168.10.14.1.1:801"));
 
       var expectedSentBytes = new Buffer();
       packet.Accept(new AmsPacketNetworkBufferWritingVisitor(expectedSentBytes));
@@ -31,8 +31,8 @@ namespace Ads {
       var sender = new AmsPacketSender(connection);
       await sender.Send(packet);
 
-      A.CallTo(() => connection.WriteAsync(A<IEnumerable<byte>>.That.Matches(b =>
-        b.Take(6).SequenceEqual(new byte[] { 0, 0, 32, 0, 0, 0 }) && // AMS/TCP header
+      A.CallTo(() => connection.WriteAsync(A<byte[]>.That.Matches(b =>
+        b.Take(6).SequenceEqual(new byte[] { 0, 0, 0, 0, 0, 32 }) && // AMS/TCP header
         b.Skip(6).SequenceEqual(expectedSentBytes)), // AMS header + data
         0,
         expectedSentBytes.Length + 6  // length of the AMS/TCP header + AMS header + data
@@ -59,7 +59,7 @@ namespace Ads {
     //  A.CallTo(() => tcpClient.GetStream()).Returns(networkStream);
 
     //  var tcpAmsPacketSender = new AmsPacketSender(amsAddressRouter, tcpClient);
-    //  var packet = (AmsPacket)new ReadDeviceInfoCommandRequest(AmsAddress.Parse("127.0.0.1.1.1:1275"), AmsAddress.Parse("192.168.10.14.1.1:801"));
+    //  var packet = (AmsPacket)new ReadDeviceInfoCommand(AmsAddress.Parse("127.0.0.1.1.1:1275"), AmsAddress.Parse("192.168.10.14.1.1:801"));
     //  var buffer = new Buffer();
     //  packet.Accept(new AmsPacketNetworkBufferWritingVisitor(buffer));
 

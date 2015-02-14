@@ -2,45 +2,41 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Ads.Routing;
 
 namespace Ads.Net {
-  public class TcpConnectionFactory : INetworkConnectionFactory<TcpConnection, IPEndPoint> {
-    readonly TcpClient _tcpClient;
+  public class TcpConnectionFactory : INetworkConnectionFactory, IAmsAddressVisitor {
+    readonly IAmsAddressRouter _router;
+    readonly int _port;
 
-    /// <summary>
-    /// Creates a new <see cref="TcpConnectionFactory"/>.
-    /// </summary>
-    public TcpConnectionFactory() {
-      _tcpClient = new TcpClient();
+    AmsNetId _targetAmsNetId;
+    AmsPort _targetAmsPort;
+
+    public TcpConnectionFactory(IAmsAddressRouter router, int port) {
+      if (router == null) throw new ArgumentNullException("router");
+      _router = router;
+      _port = port;
     }
 
     /// <summary>
-    /// Creates a new <see cref="TcpConnection"/>.
+    /// Creates a new <see cref="INetworkConnection"/>.
     /// </summary>
-    /// <param name="connectionInfo">The connection info.</param>
-    /// <returns>A <see cref="Task{TcpConnection}"/>.</returns>
-    public async Task<TcpConnection> Create(IPEndPoint connectionInfo) {
-      await _tcpClient.ConnectAsync(connectionInfo.Address, connectionInfo.Port);
-      return new TcpConnection(_tcpClient.GetStream());
+    /// <param name="target"></param>
+    /// <returns>A <see cref="INetworkConnection"/>.</returns>
+    public async Task<INetworkConnection> Create(AmsAddress target) {
+      target.Accept(this);
+      var ipAddress = await _router.ResolveAsync(_targetAmsNetId);
+      var client = new TcpClient();
+      await client.ConnectAsync(ipAddress, _port);
+      return new TcpConnection(client);
     }
 
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-    /// </summary>
-    /// <filterpriority>2</filterpriority>
-    public void Dispose() {
-      Dispose(true);
-      GC.SuppressFinalize(this);
+    void IAmsAddressVisitor.Visit(AmsNetId amsNetId) {
+      _targetAmsNetId = amsNetId;
     }
 
-    bool _disposed;
-    protected void Dispose(bool disposing) {
-      if (disposing) {
-        if (!_disposed) {
-          ((IDisposable)_tcpClient).Dispose();
-        }
-        _disposed = true;
-      }
+    void IAmsAddressVisitor.Visit(AmsPort amsPort) {
+      _targetAmsPort = amsPort;
     }
   }
 }

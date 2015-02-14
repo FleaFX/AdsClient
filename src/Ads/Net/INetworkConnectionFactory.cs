@@ -1,13 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Ads.Net {
-  public interface INetworkConnectionFactory<TConnection, in TConnectionInfo> : IDisposable {
+  /// <summary>
+  /// Creates <see cref="INetworkConnection">network connections</see>.
+  /// </summary>
+  public interface INetworkConnectionFactory {
     /// <summary>
-    /// Creates a new <typeparamref name="TConnection"/>, using the given <typeparamref name="TConnectionInfo"/>.
+    /// Creates a new <see cref="INetworkConnection"/>.
     /// </summary>
-    /// <param name="connectionInfo">Information needed to connect to another station.</param>
-    /// <returns>A <see cref="Task{TConnection}"/>.</returns>
-    Task<TConnection> Create(TConnectionInfo connectionInfo);
+    /// <param name="target">The target station to connect to.</param>
+    /// <returns>A <see cref="INetworkConnection"/>.</returns>
+    Task<INetworkConnection> Create(AmsAddress target);
   }
 }
